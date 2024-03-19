@@ -47,7 +47,7 @@
           <h2>Atualizar serviço para "pronto"?</h2>
 
           <div class="btn-wrapper">
-            <a class="btn btn-confirm" href="/service/update/status">Sim</a>
+            <a class="btn btn-confirm" href="/service/edit/status">Sim</a>
 
             <button class="btn btn-confirm" onclick="close_modal('modal-status-pronto')">Não</button>
           </div>
@@ -63,7 +63,7 @@
           <h2>Atualizar serviço para "entregue"?</h2>
 
           <div class="btn-wrapper">
-            <a class="btn btn-confirm" href="/service/update/status">Sim</a>
+            <a class="btn btn-confirm" href="/service/edit/status">Sim</a>
 
             <button class="btn btn-confirm" onclick="close_modal('modal-status-entregue')">Não</button>
           </div>
@@ -79,7 +79,7 @@
           <h2>Atualizar serviço para "prateleira"?</h2>
 
           <div class="btn-wrapper">
-            <a class="btn btn-confirm" href="/service/update/status">Sim</a>
+            <a class="btn btn-confirm" href="/service/edit/status">Sim</a>
 
             <button class="btn btn-confirm" onclick="close_modal('modal-status-prateleira')">Não</button>
           </div>
@@ -101,7 +101,7 @@
           </div>
 
           <div class="btn-wrapper">
-            <a class="btn btn-confirm" href="/service/update/payment">Pagar</a>
+            <a class="btn btn-confirm" href="/service/edit/payment">Pagar</a>
           </div>
         </dialog>
       
@@ -116,7 +116,7 @@
           <h2>Remover pagamento do serviço?</h2>
 
           <div class="btn-wrapper">
-            <a class="btn btn-confirm" href="/service/update/payment">Sim</a>
+            <a class="btn btn-confirm" href="/service/edit/payment">Sim</a>
 
             <button class="btn btn-confirm" onclick="close_modal('modal-payment-remove')">Não</button>
           </div>
@@ -125,7 +125,7 @@
     </div>
 
     <div>
-      <a class="btn btn-service" href="/service/edit"><i class="fa-solid fa-pen"></i></a>
+      <a class="btn btn-service" href="/service/edit/description"><i class="fa-solid fa-pen"></i></a>
     </div>
 
     <div>

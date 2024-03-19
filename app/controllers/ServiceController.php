@@ -45,9 +45,14 @@ class ServiceController extends Controller
     ServiceStore::service_store();
   }
 
+  public function edit(array $args)
+  {
+    return ServiceEdit::service_edit($args['edit']);
+  }
+
   public function update(array $args)
   {
-    ServiceUpdate::service_update($args['update']);
+    ServiceUpdate::service_update();
   }
 
   public function destroy(array $args)
