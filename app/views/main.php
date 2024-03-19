@@ -27,5 +27,6 @@
     </div>
 
     <script src="/assets/js/index.js"></script>
+    <?php include_scripts(); ?>
   </body>
 </html>

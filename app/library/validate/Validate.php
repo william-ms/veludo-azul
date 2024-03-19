@@ -2,14 +2,13 @@
 
 namespace app\library\validate;
 
-use app\core\UriExtract;
 use app\interfaces\validate\ValidateInterface;
 use Exception;
 
 class Validate
 {
   public array $data = [];
-  private bool $errors = false;
+  public bool $errors = false;
 
   public function handle(array $validations)
   {
@@ -65,13 +64,4 @@ class Validate
   {
     return $validateInterface->handle($field, $param);
   }
-
-  public function if_errors(string $to)
-  {
-    if($this->errors)
-    {
-      return header("Location: {$to}");
-    }
-  }
-
 }
