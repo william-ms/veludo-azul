@@ -1,0 +1,41 @@
+.btn-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.btn {
+  position: relative;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--bg-primary);
+  box-shadow: 4px 4px 5px 0px var(--bg-third);
+  color: var(--text-primary);
+  cursor: pointer;
+}
+  .btn:hover {
+    background-color: #3a5cf0;
+  }
+
+.btn i.fa-value {
+  position: absolute;
+  left: 18px;
+  top: 22px;
+}
+
+.btn-close-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  height: 40px;
+}
+
+.btn-close {
+  width: 40px;
+  line-height: 40px;
+  background-color: #d50000;
+}
+  .btn-close:hover {
+    background-color: #e53935;
+  }

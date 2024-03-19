@@ -7,17 +7,24 @@
 
     <title><?php echo $title ?></title>
 
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/360805e100.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/assets/css/index.css" />
+    <?php include_css(); ?>
   </head>
 
   <body>
-    <header>
-      <?php include_partial('header'); ?>
-    </header>
+    <div class="layer">
+      <header>
+        <?php include_partial('header') ?>
+      </header>
 
-    <section class="content">
-      <?php include_view(); ?>
-    </section>
+      <section class="content">
+        <div class="container">
+          <?php include_view() ?>
+        </div>
+      </section>
+    </div>
 
     <script src="/assets/js/index.js"></script>
   </body>

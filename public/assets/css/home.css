@@ -1,0 +1,42 @@
+.day-services {
+  padding: 20px 0;
+}
+
+.day-services h2 {
+  text-align: center;
+  font-size: 30px;
+  color: var(--text-second);
+}
+
+.day-services h3 {
+  text-align: center;
+  font-size: 26px;
+  color: var(--text-second);
+}
+
+.home-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 20%;
+}
+
+.btn-change-day {
+  width: 60px;
+  line-height: 60px;
+  font-size: 20px;
+}
+
+.btn-add-service {
+  width: 80px;
+  margin: 0 20px;
+  line-height: 80px;
+  font-size: 40px;
+}
+
+.btn-search {
+  width: 60px;
+  line-height: 60px;
+  font-size: 20px;
+}

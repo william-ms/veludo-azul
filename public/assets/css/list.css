@@ -1,0 +1,60 @@
+.list-services {
+  width: 100%;
+}
+
+.list-services ul {
+  list-style-type: none;
+}
+
+.list-services ul li a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  text-decoration: none;
+  border-bottom: 2px solid #ccc;
+}
+
+.list-name {
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--text-second);
+}
+
+.list-phonenumber {
+  font-size: 14px;
+  color: var(--text-third);
+}
+
+.list-status {
+  padding: 8px;
+  border-radius: 16px;
+  font-weight: bold;
+  color: #444;
+  background-color: #ddd;
+}
+
+.list-status i {
+  font-size: 10px;
+}
+
+.status-atrasado { background-color: red; }
+.status-prateleira { background-color:  #ffb300     }
+.status-pronto { background-color: green; }
+.status-entregue { background-color: #aaa; }
+
+
+/*============================================================================*/
+/*================================= NOT FOUND ================================*/
+.not-found {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.not-found h2 {
+  display: inline-block;
+  padding: 20px;
+  border: 2px solid var(--text-second);
+  border-radius: 8px;
+  color: var(--text-second);
+}
