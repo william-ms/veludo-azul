@@ -1,6 +1,6 @@
 <script setup>
-import WebLayout from "@/Layouts/WebLayout.vue";
 import { Head } from "@inertiajs/vue3";
+import WebLayout from "@/Layouts/WebLayout.vue";
 
 let props = defineProps({
     Services: Array,
@@ -11,9 +11,7 @@ console.log(props.Services);
 
 <template>
     <WebLayout>
-        <Head>
-            <title>Home</title>
-        </Head>
+        <Head title="Home" />
 
         <div id="page-content">
             <div id="page-header"></div>
@@ -29,7 +27,7 @@ console.log(props.Services);
                     <div id="search"></div>
 
                     <div class="flex gap-1">
-                        <Button>
+                        <Button btnType="link" href="">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                             </svg>
