@@ -3,13 +3,21 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\Service;
+use App\Traits\ServiceTrait;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function index()
+    use ServiceTrait;
+
+    public function index(Request $request)
     {
+        $Services = Service::with('client')->whereDate('delivery_date', $request->date ?? now()->today())->get();
+
         return inertia('Web/Home', [
-            'Services' => [],
+            'Services' => $Services,
+            'ServiceStatus' => $this->ServiceStatus
         ]);
     }
 }

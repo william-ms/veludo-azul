@@ -47,7 +47,7 @@ function create() {
                         <h1 class="text-2xl font-bold text-slate-800">Cadastrar cliente</h1>
 
                         <div>
-                            <Button btnType="link" :href="route('client.index')" v-bind:class="'px-3 py-2'">
+                            <Button btnType="link" :href="route('client.index')" :class="'px-3 py-2'">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-list">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                     <path d="M9 6l11 0" />
@@ -86,7 +86,7 @@ function create() {
                     <!-- card-body -->
 
                     <div class="card-footer px-6 pt-4 pb-6 border-t">
-                        <Button color="primary" btnType="submit" v-bind:class="'px-3 py-2'" form="create-form" :disabled="form.processing">
+                        <Button color="primary" btnType="submit" :class="'px-3 py-2'" form="create-form" :disabled="form.processing">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-checks">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                 <path d="M7 12l5 5l10 -10" />

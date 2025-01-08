@@ -25,7 +25,7 @@ let props = defineProps({
             </div>
 
             <ul class="list-disc list-inside ps-1">
-                <li v-for="error in $page.props.errors" v-bind:key="error">{{ error }}</li>
+                <li v-for="error in $page.props.errors" :key="error">{{ error }}</li>
             </ul>
         </div>
     </div>

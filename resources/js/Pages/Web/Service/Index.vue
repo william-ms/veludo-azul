@@ -10,12 +10,13 @@ import Paginator from "@/Components/Paginator.vue";
 let showFilter = ref(false);
 
 let props = defineProps({
-    Clients: Object,
+    Services: Object,
+    ServiceStatus: Object,
 });
 
 let breadcrumbs = [
     {
-        text: "Clientes",
+        text: "Serviços",
     },
 ];
 
@@ -41,7 +42,7 @@ let dataFilter = [
 
 <template>
     <WebLayout>
-        <Head title="Listar clientes" />
+        <Head title="Listar serviços" />
 
         <div id="page-content" class="px-5 lg:px-10 pt-8">
             <div id="page-header" class="p-1">
@@ -52,10 +53,10 @@ let dataFilter = [
             <div id="page-body" class="">
                 <div class="card bg-white border rounded-lg">
                     <div class="card-header flex justify-between px-6 pt-6 pb-4 border-b">
-                        <h1 class="text-2xl font-bold text-slate-800">Clientes</h1>
+                        <h1 class="text-2xl font-bold text-slate-800">Serviços</h1>
 
                         <div>
-                            <Button btnType="link" :href="route('client.create')" :class="'px-3 py-2'">
+                            <Button btnType="link" :href="route('service.create')" :class="'px-3 py-2'">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-plus">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                     <path d="M12 5l0 14" />
@@ -98,22 +99,36 @@ let dataFilter = [
                         <table class="my-2 min-w-full divide-y divide-gray-200">
                             <thead>
                                 <tr class="text-xs font-medium text-gray-500 uppercase">
-                                    <th class="w-3/6 px-2 py-3 text-start">Nome</th>
-                                    <th class="w-4/6 px-2 py-3 text-start">Telefone</th>
+                                    <th class="w-2/6 md:4/6 px-2 py-3 text-start">Nome</th>
+                                    <th class="w-2/6 px-2 py-3 text-start hidden md:block">Telefone</th>
+                                    <th class="w-1/6 px-2 py-3 text-center">Status</th>
                                     <th class="w-1/6 px-2 py-3 text-center">Ações</th>
                                 </tr>
                             </thead>
 
                             <tbody class="divide-y divide-gray-200">
-                                <tr v-for="Client in Clients.data" :key="Client.id" class="hover:bg-gray-100">
-                                    <td class="px-2 py-4 whitespace-nowrap text-sm font-medium text-gray-800">{{ Client.name }}</td>
-                                    <td class="px-2 py-4 whitespace-nowrap text-sm font-medium text-gray-800">{{ Client.phone }}</td>
+                                <tr v-for="Service in Services.data" :key="Service.id" class="hover:bg-gray-100">
+                                    <!-- Nome do cliente -->
+                                    <td class="px-2 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                        {{ Service.client.name }}
+                                    </td>
+
+                                    <!-- Telefone do cliente -->
+                                    <td class="hidden md:block px-2 py-4 whitespace-nowrap text-sm font-medium text-gray-800">
+                                        {{ Service.client.phone }}
+                                    </td>
+
+                                    <td class="px-2 py-4 whitespace-nowrap text-sm text-center font-medium text-gray-800">
+                                        <span class="inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset" :class="ServiceStatus[Service.status]['badge']">{{ ServiceStatus[Service.status]["text"] }}</span>
+                                    </td>
+
                                     <td class="flex justify-center gap-1 px-2 py-4">
-                                        <Button btnType="link" color="light_primary" :href="route('client.show', Client.id)">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye">
+                                        <!-- [button] - Editar serviço -->
+                                        <Button btnType="link" color="light_primary" :href="route('service.edit', Service.id)">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pencil">
                                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
-                                                <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
+                                                <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+                                                <path d="M13.5 6.5l4 4" />
                                             </svg>
                                         </Button>
                                     </td>
@@ -124,7 +139,7 @@ let dataFilter = [
                         <div class="flex justify-between">
                             <div></div>
 
-                            <Paginator :links="Clients.links" />
+                            <Paginator :links="Services.links" />
                         </div>
                     </div>
                     <!-- card-body -->
@@ -135,6 +150,6 @@ let dataFilter = [
         </div>
         <!-- page-content -->
 
-        <Filter :showFilter="showFilter" @hideFilter="showFilter = !showFilter" :inputs="dataFilter" :route="route('client.index')" />
+        <Filter :showFilter="showFilter" @hideFilter="showFilter = !showFilter" :inputs="dataFilter" :route="route('service.index')" />
     </WebLayout>
 </template>

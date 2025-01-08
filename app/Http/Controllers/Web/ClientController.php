@@ -8,6 +8,7 @@ use App\Http\Requests\StoreClientRequest;
 use App\Http\Requests\UpdateClientRequest;
 use App\Models\Client;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class ClientController extends Controller
 {
@@ -89,5 +90,20 @@ class ClientController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function get(string $phone) {
+
+        $phone = preg_replace('/[^0-9]/', '', $phone);
+
+        $Client = Client::select('id','name')->where('phone', $phone)->first();
+        
+        if(empty($Client)) {
+            return response()->json([], 204);
+        }
+
+        return response()->json([
+            'Client' => $Client
+        ], 200);
     }
 }
