@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from "vue";
-import Navbar from "@/Partials/Web/Navbar.vue";
+import Navbar from "@/Partials/Web/NavBar.vue";
 
 let showNavbar = ref(false);
 </script>
