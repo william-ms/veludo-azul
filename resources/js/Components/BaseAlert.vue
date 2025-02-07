@@ -1,5 +1,5 @@
 <script setup>
-let props = defineProps({
+defineProps({
     color: { type: String, default: "primary" },
 });
 </script>
@@ -7,7 +7,13 @@ let props = defineProps({
 <template>
     <div v-if="$page.props.flash.success">
         <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4" role="alert">
-            <p class="font-bold">Sucesso</p>
+            <div class="flex items-center gap-1">
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="20"  height="20"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-checks">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M7 12l5 5l10 -10" /><path d="M2 12l5 5m5 -5l5 -5" />
+                </svg>
+                <p class="text-lg font-bold">Sucesso</p>
+            </div>
             <p>{{ $page.props.flash.success }}</p>
         </div>
     </div>
@@ -21,7 +27,7 @@ let props = defineProps({
                     <path d="M12 8v4" />
                     <path d="M12 16h.01" />
                 </svg>
-                <p class="text-lg font-bold">Oops! Algo deu errado</p>
+                <p class="text-lg font-bold">Ops! Algo deu errado</p>
             </div>
 
             <ul class="list-disc list-inside ps-1">

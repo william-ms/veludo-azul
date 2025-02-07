@@ -1,6 +1,6 @@
 <script setup>
 import { useForm } from "@inertiajs/vue3";
-import Modal from "@/Components/Modal.vue";
+import BaseModal from "@/Components/BaseModal.vue";
 
 let props = defineProps({
     showFilter: { type: Boolean, default: false },
@@ -24,15 +24,15 @@ function clearFilter() {
 </script>
 
 <template>
-    <Modal :show="showFilter">
+    <BaseModal :show="showFilter">
         <div class="modal-header flex justify-end px-6 pt-6 pb-4 border-b">
-            <Button color="danger" :class="'px-2 py-2'" @click="$emit('hideFilter')">
+            <BaseButton color="danger" :class="'px-2 py-2'" @click="$emit('hideFilter')">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                     <path d="M18 6l-12 12" />
                     <path d="M6 6l12 12" />
                 </svg>
-            </Button>
+            </BaseButton>
         </div>
         <!-- modal-header -->
 
@@ -49,16 +49,16 @@ function clearFilter() {
         <!-- modal-body -->
 
         <div class="modal-footer flex justify-end gap-2 px-6 pt-4 pb-6 border-t">
-            <Button color="warning" :class="'px-3 py-2'" @click="clearFilter()" :disabled="form.processing">
+            <BaseButton color="warning" :class="'px-3 py-2'" @click="clearFilter()" :disabled="form.processing">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                     <path d="M18 6l-12 12" />
                     <path d="M6 6l12 12" />
                 </svg>
                 Limpar filtro
-            </Button>
+            </BaseButton>
 
-            <Button color="primary" btnType="submit" :class="'px-3 py-2'" form="filter-form" :disabled="form.processing">
+            <BaseButton color="primary" btnType="submit" :class="'px-3 py-2'" form="filter-form" :disabled="form.processing">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-list-search">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                     <path d="M15 15m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
@@ -68,8 +68,8 @@ function clearFilter() {
                     <path d="M4 18h4" />
                 </svg>
                 Filtrar
-            </Button>
+            </BaseButton>
         </div>
         <!-- modal-footer -->
-    </Modal>
+    </BaseModal>
 </template>

@@ -1,13 +1,11 @@
 <script setup>
-import { Head, router, useForm } from "@inertiajs/vue3";
+import { Head, router } from "@inertiajs/vue3";
 import { ref, watch } from "vue";
 import WebLayout from "@/Layouts/WebLayout.vue";
-import Modal from "@/Components/Modal.vue";
 
 let date = ref(new Date().toLocaleString("en-US", { timeZone: "America/New_York" }));
-let showCalendar = ref(false);
 
-let props = defineProps({
+defineProps({
     Services: Object,
     ServiceStatus: Object,
 });
@@ -39,7 +37,7 @@ const changeDay = () => {};
                 <div class="card bg-white border rounded-lg">
                     <div class="card-header flex justify-end px-6 pt-6 pb-4 border-b gap-1">
                         <!-- [button] - Calendário -->
-                        <Button :class="'px-3 py-2'" @click="$refs.myDateInput.showPicker()">
+                        <BaseButton :class="'px-3 py-2'" @click="$refs.myDateInput.showPicker()">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-calendar-week">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                 <path d="M4 7a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12z" />
@@ -55,18 +53,18 @@ const changeDay = () => {};
                                 <path d="M10.01 17h.005" />
                             </svg>
                             <p class="hidden md:block">Alterar dia</p>
-                        </Button>
+                        </BaseButton>
                         <input v-model="date" type="date" ref="myDateInput" @change="changeDay()" class="w-0 h-0 p-0 border-0" />
 
                         <!-- [button] - Cadastrar -->
-                        <Button btnType="link" :href="route('service.create')" :class="'px-3 py-2'">
+                        <BaseButton btnType="link" :href="route('service.create')" :class="'px-3 py-2'">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-plus">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                 <path d="M12 5l0 14" />
                                 <path d="M5 12l14 0" />
                             </svg>
                             <p class="hidden md:block">Novo serviço</p>
-                        </Button>
+                        </BaseButton>
                     </div>
                     <!-- card-header -->
 
@@ -100,13 +98,13 @@ const changeDay = () => {};
                                     <!-- Ações -->
                                     <td class="flex justify-center gap-1 px-2 py-4">
                                         <!-- [button] - Editar serviço -->
-                                        <Button btnType="link" color="light_primary" :href="route('service.edit', Service.id)">
+                                        <BaseButton btnType="link" color="light_primary" :href="route('service.edit', Service.id)">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pencil">
                                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                                 <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
                                                 <path d="M13.5 6.5l4 4" />
                                             </svg>
-                                        </Button>
+                                        </BaseButton>
                                     </td>
                                 </tr>
                             </tbody>

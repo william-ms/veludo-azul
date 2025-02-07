@@ -15,7 +15,7 @@ class HomeController extends Controller
     {
         $Services = Service::with('client')->whereDate('delivery_date', $request->date ?? now()->today())->get();
 
-        return inertia('Web/Home', [
+        return inertia('Web/HomeWeb', [
             'Services' => $Services,
             'ServiceStatus' => $this->ServiceStatus
         ]);

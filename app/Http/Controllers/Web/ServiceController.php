@@ -25,7 +25,7 @@ class ServiceController extends Controller
         ->with('client')
         ->paginate(50);
 
-        return inertia('Web/Service/Index', [
+        return inertia('Web/Service/IndexService', [
             'Services' => $Services,
             'ServiceStatus' => $this->ServiceStatus,
         ]);
@@ -36,7 +36,7 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        return inertia('Web/Service/Create', [
+        return inertia('Web/Service/CreateService', [
             'ServiceTypes' => $this->ServiceTypes,
         ]);
     }
@@ -76,7 +76,7 @@ class ServiceController extends Controller
             ]);
         }
 
-        return to_route('service.show', $Service->id);
+        return to_route('service.edit', $Service->id);
     }
 
     /**
@@ -86,7 +86,7 @@ class ServiceController extends Controller
     {
         $Service->load('client');
 
-        return inertia('Web/Service/Show', [
+        return inertia('Web/Service/ShowService', [
             'Service' => $Service,
             'ServiceStatus' => $this->ServiceStatus,
         ]);
@@ -99,7 +99,7 @@ class ServiceController extends Controller
     {
         $Service->load('client', 'items');
 
-        return inertia('Web/Service/Edit', [
+        return inertia('Web/Service/EditService', [
             'Service' => $Service,
             'ServiceStatus' => $this->ServiceStatus,
             'ServiceTypes' => $this->ServiceTypes,

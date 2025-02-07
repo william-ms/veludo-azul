@@ -1,8 +1,8 @@
 <script setup>
-import { Head, useForm } from "@inertiajs/vue3";
+import { Head } from "@inertiajs/vue3";
 import WebLayout from "@/Layouts/WebLayout.vue";
-import Breadcrumbs from "@/Components/Breadcrumbs.vue";
-import Alert from "@/Components/Alert.vue";
+import BaseBreadcrumbs from "@/Components/BaseBreadcrumbs.vue";
+import BaseAlert from "@/Components/BaseAlert.vue";
 
 let breadcrumbs = [
     {
@@ -14,7 +14,7 @@ let breadcrumbs = [
     },
 ];
 
-let props = defineProps({
+defineProps({
     Service: Object,
     ServiceStatus: Object,
 });
@@ -34,7 +34,7 @@ let badgeColor = {
 
         <div id="page-content" class="px-5 lg:px-10 pt-8">
             <div id="page-header" class="p-1">
-                <Breadcrumbs :breadcrumbs="breadcrumbs" />
+                <BaseBreadcrumbs :breadcrumbs="breadcrumbs" />
             </div>
             <!-- page-header -->
 
@@ -46,7 +46,7 @@ let badgeColor = {
                         </h1>
 
                         <div>
-                            <Button btnType="link" :href="route('client.index')" :class="'px-3 py-2'">
+                            <BaseButton btnType="link" :href="route('client.index')" :class="'px-3 py-2'">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-list">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                     <path d="M9 6l11 0" />
@@ -57,13 +57,13 @@ let badgeColor = {
                                     <path d="M5 18l0 .01" />
                                 </svg>
                                 Voltar
-                            </Button>
+                            </BaseButton>
                         </div>
                     </div>
                     <!-- card-header -->
 
                     <div class="card-body px-6 py-4">
-                        <Alert />
+                        <BaseAlert />
 
                         <div>
                             <h2 class="text-lg font-bold">Informações do cliente</h2>

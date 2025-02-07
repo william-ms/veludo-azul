@@ -2,14 +2,14 @@
 import { Head } from "@inertiajs/vue3";
 import { ref } from "vue";
 import WebLayout from "@/Layouts/WebLayout.vue";
-import Breadcrumbs from "@/Components/Breadcrumbs.vue";
-import Filter from "@/Components/Filter.vue";
-import Alert from "@/Components/Alert.vue";
-import Paginator from "@/Components/Paginator.vue";
+import BaseBreadcrumbs from "@/Components/BaseBreadcrumbs.vue";
+import BaseFilter from "@/Components/BaseFilter.vue";
+import BaseAlert from "@/Components/BaseAlert.vue";
+import BasePaginator from "@/Components/BasePaginator.vue";
 
 let showFilter = ref(false);
 
-let props = defineProps({
+defineProps({
     Clients: Object,
 });
 
@@ -45,7 +45,7 @@ let dataFilter = [
 
         <div id="page-content" class="px-5 lg:px-10 pt-8">
             <div id="page-header" class="p-1">
-                <Breadcrumbs :breadcrumbs="breadcrumbs" />
+                <BaseBreadcrumbs :breadcrumbs="breadcrumbs" />
             </div>
             <!-- page-header -->
 
@@ -55,20 +55,20 @@ let dataFilter = [
                         <h1 class="text-2xl font-bold text-slate-800">Clientes</h1>
 
                         <div>
-                            <Button btnType="link" :href="route('client.create')" :class="'px-3 py-2'">
+                            <BaseButton btnType="link" :href="route('client.create')" :class="'px-3 py-2'">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-plus">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                     <path d="M12 5l0 14" />
                                     <path d="M5 12l14 0" />
                                 </svg>
                                 Cadastrar
-                            </Button>
+                            </BaseButton>
                         </div>
                     </div>
                     <!-- card-header -->
 
                     <div class="card-body px-6 py-4">
-                        <Alert />
+                        <BaseAlert />
 
                         <div class="flex justify-between">
                             <div>
@@ -82,7 +82,7 @@ let dataFilter = [
                                 <span>resultados por página</span>
                             </div>
 
-                            <Button color="primary" :class="'px-3 py-2'" @click="showFilter = !showFilter">
+                            <BaseButton color="primary" :class="'px-3 py-2'" @click="showFilter = !showFilter">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-list-search">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                     <path d="M15 15m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
@@ -92,7 +92,7 @@ let dataFilter = [
                                     <path d="M4 18h4" />
                                 </svg>
                                 Filtrar
-                            </Button>
+                            </BaseButton>
                         </div>
 
                         <table class="my-2 min-w-full divide-y divide-gray-200">
@@ -107,15 +107,15 @@ let dataFilter = [
                             <tbody class="divide-y divide-gray-200">
                                 <tr v-for="Client in Clients.data" :key="Client.id" class="hover:bg-gray-100">
                                     <td class="px-2 py-4 whitespace-nowrap text-sm font-medium text-gray-800">{{ Client.name }}</td>
-                                    <td class="px-2 py-4 whitespace-nowrap text-sm font-medium text-gray-800">{{ Client.phone }}</td>
+                                    <td class="px-2 py-4 whitespace-nowrap text-sm font-medium text-gray-800">{{ Client.phone.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3")  }}</td>
                                     <td class="flex justify-center gap-1 px-2 py-4">
-                                        <Button btnType="link" color="light_primary" :href="route('client.show', Client.id)">
+                                        <BaseButton btnType="link" color="light_primary" :href="route('client.show', Client.id)">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye">
                                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                                 <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
                                                 <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
                                             </svg>
-                                        </Button>
+                                        </BaseButton>
                                     </td>
                                 </tr>
                             </tbody>
@@ -124,7 +124,7 @@ let dataFilter = [
                         <div class="flex justify-between">
                             <div></div>
 
-                            <Paginator :links="Clients.links" />
+                            <BasePaginator :links="Clients.links" />
                         </div>
                     </div>
                     <!-- card-body -->
@@ -135,6 +135,6 @@ let dataFilter = [
         </div>
         <!-- page-content -->
 
-        <Filter :showFilter="showFilter" @hideFilter="showFilter = !showFilter" :inputs="dataFilter" :route="route('client.index')" />
+        <BaseFilter :showFilter="showFilter" @hideFilter="showFilter = !showFilter" :inputs="dataFilter" :route="route('client.index')" />
     </WebLayout>
 </template>

@@ -2,14 +2,14 @@
 import { Head } from "@inertiajs/vue3";
 import { ref } from "vue";
 import WebLayout from "@/Layouts/WebLayout.vue";
-import Breadcrumbs from "@/Components/Breadcrumbs.vue";
-import Filter from "@/Components/Filter.vue";
-import Alert from "@/Components/Alert.vue";
-import Paginator from "@/Components/Paginator.vue";
+import BaseBreadcrumbs from "@/Components/BaseBreadcrumbs.vue";
+import BaseFilter from "@/Components/BaseFilter.vue";
+import BaseAlert from "@/Components/BaseAlert.vue";
+import BasePaginator from "@/Components/BasePaginator.vue";
 
 let showFilter = ref(false);
 
-let props = defineProps({
+defineProps({
     Services: Object,
     ServiceStatus: Object,
 });
@@ -46,7 +46,7 @@ let dataFilter = [
 
         <div id="page-content" class="px-5 lg:px-10 pt-8">
             <div id="page-header" class="p-1">
-                <Breadcrumbs :breadcrumbs="breadcrumbs" />
+                <BaseBreadcrumbs :breadcrumbs="breadcrumbs" />
             </div>
             <!-- page-header -->
 
@@ -56,20 +56,20 @@ let dataFilter = [
                         <h1 class="text-2xl font-bold text-slate-800">Serviços</h1>
 
                         <div>
-                            <Button btnType="link" :href="route('service.create')" :class="'px-3 py-2'">
+                            <BaseButton btnType="link" :href="route('service.create')" :class="'px-3 py-2'">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-plus">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                     <path d="M12 5l0 14" />
                                     <path d="M5 12l14 0" />
                                 </svg>
                                 Cadastrar
-                            </Button>
+                            </BaseButton>
                         </div>
                     </div>
                     <!-- card-header -->
 
                     <div class="card-body px-6 py-4">
-                        <Alert />
+                        <BaseAlert />
 
                         <div class="flex justify-between">
                             <div>
@@ -83,7 +83,7 @@ let dataFilter = [
                                 <span>resultados por página</span>
                             </div>
 
-                            <Button color="primary" :class="'px-3 py-2'" @click="showFilter = !showFilter">
+                            <BaseButton color="primary" :class="'px-3 py-2'" @click="showFilter = !showFilter">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-list-search">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                     <path d="M15 15m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
@@ -93,7 +93,7 @@ let dataFilter = [
                                     <path d="M4 18h4" />
                                 </svg>
                                 Filtrar
-                            </Button>
+                            </BaseButton>
                         </div>
 
                         <table class="my-2 min-w-full divide-y divide-gray-200">
@@ -124,13 +124,13 @@ let dataFilter = [
 
                                     <td class="flex justify-center gap-1 px-2 py-4">
                                         <!-- [button] - Editar serviço -->
-                                        <Button btnType="link" color="light_primary" :href="route('service.edit', Service.id)">
+                                        <BaseButton btnType="link" color="light_primary" :href="route('service.edit', Service.id)">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pencil">
                                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                                 <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
                                                 <path d="M13.5 6.5l4 4" />
                                             </svg>
-                                        </Button>
+                                        </BaseButton>
                                     </td>
                                 </tr>
                             </tbody>
@@ -139,7 +139,7 @@ let dataFilter = [
                         <div class="flex justify-between">
                             <div></div>
 
-                            <Paginator :links="Services.links" />
+                            <BasePaginator :links="Services.links" />
                         </div>
                     </div>
                     <!-- card-body -->
@@ -150,6 +150,6 @@ let dataFilter = [
         </div>
         <!-- page-content -->
 
-        <Filter :showFilter="showFilter" @hideFilter="showFilter = !showFilter" :inputs="dataFilter" :route="route('service.index')" />
+        <BaseFilter :showFilter="showFilter" @hideFilter="showFilter = !showFilter" :inputs="dataFilter" :route="route('service.index')" />
     </WebLayout>
 </template>

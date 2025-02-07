@@ -27,7 +27,7 @@ class ClientController extends Controller
         })
         ->paginate(10);
 
-        return inertia('Web/Client/Index', [
+        return inertia('Web/Client/IndexClient', [
             'Clients' => $Clients,
         ]);
     }
@@ -37,7 +37,7 @@ class ClientController extends Controller
      */
     public function create()
     {
-        return inertia('Web/Client/Create');
+        return inertia('Web/Client/CreateClient');
     }
 
     /**
@@ -58,7 +58,7 @@ class ClientController extends Controller
      */
     public function show(Client $Client)
     {
-        return inertia('Web/Client/Show', [
+        return inertia('Web/Client/ShowClient', [
             'Client' => $Client,
         ]);
     }

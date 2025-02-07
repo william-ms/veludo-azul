@@ -1,8 +1,8 @@
 <script setup>
 import { Head, useForm } from "@inertiajs/vue3";
 import WebLayout from "@/Layouts/WebLayout.vue";
-import Breadcrumbs from "@/Components/Breadcrumbs.vue";
-import Alert from "@/Components/Alert.vue";
+import BaseBreadcrumbs from "@/Components/BaseBreadcrumbs.vue";
+import BaseAlert from "@/Components/BaseAlert.vue";
 
 let breadcrumbs = [
     {
@@ -39,7 +39,7 @@ const goBack = () => {
 
         <div id="page-content" class="px-5 lg:px-10 pt-8">
             <div id="page-header" class="p-1">
-                <Breadcrumbs :breadcrumbs="breadcrumbs" />
+                <BaseBreadcrumbs :breadcrumbs="breadcrumbs" />
             </div>
             <!-- page-header -->
 
@@ -49,19 +49,19 @@ const goBack = () => {
                         <h1 class="text-2xl font-bold text-slate-800">{{ ServiceType.name }}</h1>
 
                         <div>
-                            <Button @click="goBack()" :class="'px-3 py-2'">
+                            <BaseButton @click="goBack()" :class="'px-3 py-2'">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-back">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                     <path d="M9 11l-4 4l4 4m-4 -4h11a4 4 0 0 0 0 -8h-1" />
                                 </svg>
                                 Voltar
-                            </Button>
+                            </BaseButton>
                         </div>
                     </div>
                     <!-- card-header -->
 
                     <div class="card-body px-6 py-4">
-                        <Alert />
+                        <BaseAlert />
 
                         <form method="POST" @submit.prevent="update()" id="edit-form">
                             <!-- [input] - NOME -->
@@ -83,14 +83,14 @@ const goBack = () => {
                     <!-- card-body -->
 
                     <div class="card-footer px-6 pt-4 pb-6 border-t">
-                        <Button color="primary" btnType="submit" :class="'px-3 py-2'" form="edit-form" :disabled="form.processing">
+                        <BaseButton color="primary" btnType="submit" :class="'px-3 py-2'" form="edit-form" :disabled="form.processing">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-checks">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                 <path d="M7 12l5 5l10 -10" />
                                 <path d="M2 12l5 5m5 -5l5 -5" />
                             </svg>
                             Enviar
-                        </Button>
+                        </BaseButton>
                         <p class="pt-1 text-xs"><span class="required"></span><i>Campos obrigatórios</i></p>
                     </div>
                 </div>

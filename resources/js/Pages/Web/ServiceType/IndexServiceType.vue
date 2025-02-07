@@ -2,10 +2,10 @@
 import { Head, useForm } from "@inertiajs/vue3";
 import { ref } from "vue";
 import WebLayout from "@/Layouts/WebLayout.vue";
-import Breadcrumbs from "@/Components/Breadcrumbs.vue";
-import Filter from "@/Components/Filter.vue";
-import Alert from "@/Components/Alert.vue";
-import Paginator from "@/Components/Paginator.vue";
+import BaseBreadcrumbs from "@/Components/BaseBreadcrumbs.vue";
+import BaseFilter from "@/Components/BaseFilter.vue";
+import BaseAlert from "@/Components/BaseAlert.vue";
+import BasePaginator from "@/Components/BasePaginator.vue";
 
 let showFilter = ref(false);
 
@@ -53,7 +53,7 @@ function destroy(service_type_id) {
 
         <div id="page-content" class="px-5 lg:px-10 pt-8">
             <div id="page-header" class="p-1">
-                <Breadcrumbs :breadcrumbs="breadcrumbs" />
+                <BaseBreadcrumbs :breadcrumbs="breadcrumbs" />
             </div>
             <!-- page-header -->
 
@@ -64,20 +64,20 @@ function destroy(service_type_id) {
 
                         <div>
 							<!-- [button] - Cadastrar -->
-                            <Button btnType="link" :href="route('service.type.create')" :class="'px-3 py-2'">
+                            <BaseButton btnType="link" :href="route('service.type.create')" :class="'px-3 py-2'">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-plus">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                     <path d="M12 5l0 14" />
                                     <path d="M5 12l14 0" />
                                 </svg>
                                 Cadastrar
-                            </Button>
+                            </BaseButton>
                         </div>
                     </div>
                     <!-- card-header -->
 
                     <div class="card-body px-6 py-4">
-                        <Alert />
+                        <BaseAlert />
 
                         <div class="flex justify-between">
                             <div>
@@ -91,7 +91,7 @@ function destroy(service_type_id) {
                                 <span>resultados por página</span>
                             </div>
 
-                            <Button color="primary" :class="'px-3 py-2'" @click="showFilter = !showFilter">
+                            <BaseButton color="primary" :class="'px-3 py-2'" @click="showFilter = !showFilter">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-list-search">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                     <path d="M15 15m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
@@ -101,7 +101,7 @@ function destroy(service_type_id) {
                                     <path d="M4 18h4" />
                                 </svg>
                                 Filtrar
-                            </Button>
+                            </BaseButton>
                         </div>
 
                         <table class="my-2 min-w-full divide-y divide-gray-200">
@@ -119,16 +119,16 @@ function destroy(service_type_id) {
                                     <td class="px-2 py-4 whitespace-nowrap text-sm font-medium text-gray-800">{{ formatter.format(ServiceType.value / 100)  }}</td>
                                     <td class="flex justify-center gap-1 px-2 py-4">
                                         <!-- [button] - Editar -->
-                                        <Button btnType="link" color="light_primary" :href="route('service.type.edit', ServiceType.id)">
+                                        <BaseButton btnType="link" color="light_primary" :href="route('service.type.edit', ServiceType.id)">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-pencil">
                                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                                 <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
                                                 <path d="M13.5 6.5l4 4" />
                                             </svg>
-                                        </Button>
+                                        </BaseButton>
 
                                         <!-- [button] - Deletar -->
-                                        <Button color="light_danger" @click="console.log(destroy(ServiceType.id))">
+                                        <BaseButton color="light_danger" @click="console.log(destroy(ServiceType.id))">
                                             <svg  xmlns="http://www.w3.org/2000/svg"  width="18"  height="18"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-trash">
                                                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                                 <path d="M4 7l16 0" />
@@ -137,7 +137,7 @@ function destroy(service_type_id) {
                                                 <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
                                                 <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
                                             </svg>
-                                        </Button>
+                                        </BaseButton>
                                     </td>
                                 </tr>
                             </tbody>
@@ -146,7 +146,7 @@ function destroy(service_type_id) {
                         <div class="flex justify-between">
                             <div></div>
 
-                            <Paginator :links="ServiceTypes.links" />
+                            <BasePaginator :links="ServiceTypes.links" />
                         </div>
                     </div>
                     <!-- card-body -->
@@ -157,6 +157,6 @@ function destroy(service_type_id) {
         </div>
         <!-- page-content -->
 
-        <Filter :showFilter="showFilter" @hideFilter="showFilter = !showFilter" :inputs="dataFilter" :route="route('service.type.index')" />
+        <BaseFilter :showFilter="showFilter" @hideFilter="showFilter = !showFilter" :inputs="dataFilter" :route="route('service.type.index')" />
     </WebLayout>
 </template>

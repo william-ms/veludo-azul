@@ -22,7 +22,7 @@ const submit = () => {
 
 <template>
     <GuestLayout>
-        <Head title="Register" />
+        <Head title="UserRegister" />
 
         <form @submit.prevent="submit">
             <div>
@@ -105,7 +105,7 @@ const submit = () => {
                     :class="{ 'opacity-25': form.processing }"
                     :disabled="form.processing"
                 >
-                    Register
+                    UserRegister
                 </PrimaryButton>
             </div>
         </form>

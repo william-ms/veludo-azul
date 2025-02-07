@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from "vue";
-import Navbar from "@/Partials/Web/NavBar.vue";
+import Navbar from "@/Partials/Web/NavbarWeb.vue";
 
 let showNavbar = ref(false);
 </script>
@@ -11,11 +11,11 @@ let showNavbar = ref(false);
 
         <!-- HEADER -->
         <header class="px-3 lg:px-8 py-4">
-            <Button @click="showNavbar = !showNavbar" color="transparent">
+            <BaseButton @click="showNavbar = !showNavbar" color="transparent">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-7">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                 </svg>
-            </Button>
+            </BaseButton>
         </header>
 
         <!-- Page Content -->

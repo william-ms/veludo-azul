@@ -9,7 +9,7 @@ import { ZiggyVue } from "../../vendor/tightenco/ziggy";
 import VueTheMask from "vue-the-mask";
 
 import "preline";
-import Button from "@/Components/Button.vue";
+import BaseButton from "@/Components/BaseButton.vue";
 
 const appName = import.meta.env.VITE_APP_NAME || "Laravel";
 
@@ -25,7 +25,7 @@ createInertiaApp({
             .use(plugin)
             .use(ZiggyVue)
             .use(VueTheMask)
-            .component("Button", Button)
+            .component("BaseButton", BaseButton)
             .mount(el);
     },
     progress: {
