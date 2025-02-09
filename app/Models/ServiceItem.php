@@ -19,4 +19,9 @@ class ServiceItem extends Model
         'value',
         'changed_value',
     ];
+
+    public function getTypeAttribute(): array
+    {
+        return explode('|', $this->attributes['type']);
+    }
 }

@@ -3,10 +3,6 @@ namespace App\Traits;
 
 trait ServiceTrait
 {
-    public $ServiceTypes = [
-        'Bainha Comum' => '1000',
-    ];
-
     public $ServiceStatus = [
         1 => [
             'text' => 'pendente',

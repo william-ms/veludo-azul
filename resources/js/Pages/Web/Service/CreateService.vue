@@ -3,8 +3,15 @@ import { Head, useForm } from "@inertiajs/vue3";
 import WebLayout from "@/Layouts/WebLayout.vue";
 import BaseBreadcrumbs from "@/Components/BaseBreadcrumbs.vue";
 import BaseAlert from "@/Components/BaseAlert.vue";
+import SelectMultiple from "@/Components/Form/SelectMultiple.vue";
+import { computed } from "vue";
 
-let breadcrumbs = [
+const props = defineProps({
+    ServiceTypes: Object,
+});
+
+//:::::::::: BREADCRUMBS :::::::::://
+const breadcrumbs = [
     {
         text: "Serviços",
         href: route("service.index"),
@@ -14,20 +21,28 @@ let breadcrumbs = [
     },
 ];
 
-defineProps({
-    ServiceTypes: Object,
+//:::::::::: PLUCK NAMES FROM SERVICE_TYPES :::::::::://
+const pluckedServiceTypes = computed(() => {
+    return props.ServiceTypes.reduce((acc, item) => {
+        acc[item.id] = item.name;
+        return acc;
+    }, {});
 });
 
+//:::::::::::::::::::: FORM :::::::::::::::::::://
+
+// FIELDS
 const form = useForm({
     client_id: "",
     name: "",
     phone: "",
-    service_items: [{ piece: "", color: "#000000", type: "", value: "" }],
+    service_items: [{ piece: "", color: "#000000", type: [], value: "" }],
     value: "",
     delivery_date: "",
 });
 
-function create() {
+// STORE REQUEST
+function store() {
     form.post(route("service.store"), {
         onSuccess: () => {
             form.reset();
@@ -35,6 +50,16 @@ function create() {
     });
 }
 
+//:::::::::: SET SERVICE VALUE :::::::::://
+const setServiceValue = (service_item)=> {
+    service_item.value = 0;
+
+    service_item.type.forEach((type)=> {
+        service_item.value += props.ServiceTypes.find(service_type => service_type.name == type).value
+    })
+}
+
+//:::::::::: SET TOTAL VALUE :::::::::://
 const setTotalValue = () => {
     form.value = 0;
 
@@ -43,6 +68,7 @@ const setTotalValue = () => {
     });
 };
 
+//:::::::::: CHECK CLIENT :::::::::://
 const checkClient = async () => {
     if (form.phone.match(/^\(\d{2}\)\s\d{5}-\d{4}$/)) {
         try {
@@ -59,15 +85,18 @@ const checkClient = async () => {
     }
 };
 
+//:::::::::: ADD SERVICE ITEM :::::::::://
 const addServiceItem = () => {
-    form.service_items.push({ piece: "", color: "#000000", type: "", value: "" });
+    form.service_items.push({ piece: "", color: "#000000", type: [], value: "" });
 };
 
+//:::::::::: REMOVE SERVICE ITEM :::::::::://
 const removeServiceItem = (item) => {
     form.service_items.splice(item, 1);
     setTotalValue();
 };
 
+//:::::::::: GO BACK :::::::::://
 const goBack = () => {
     return window.history.back();
 };
@@ -89,6 +118,7 @@ const goBack = () => {
                         <h1 class="text-2xl font-bold text-slate-800">Cadastrar serviço</h1>
 
                         <div>
+                            <!-- [button] - GO BACK -->
                             <BaseButton @click="goBack()" :class="'px-3 py-2'">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-back">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -103,8 +133,8 @@ const goBack = () => {
                     <div class="card-body px-6 py-4">
                         <BaseAlert />
 
-                        <form method="POST" @submit.prevent="create()" id="create-form">
-                            <!-- [input] - TELEFONE -->
+                        <form method="POST" @submit.prevent="store()" id="create-form">
+                            <!-- [input] - PHONE -->
                             <div class="md:flex items-center my-6">
                                 <label class="w-1/6 required">Telefone</label>
                                 <div class="w-full md:w-5/6">
@@ -113,21 +143,25 @@ const goBack = () => {
                                 </div>
                             </div>
 
-                            <!-- [input] - NOME -->
+                            <!-- [input] - NAME -->
                             <div class="md:flex items-center my-6">
                                 <label class="w-1/6 required">Nome</label>
                                 <input type="text" v-model="form.name" class="block w-full md:w-5/6 rounded-md border-slate-300 placeholder-slate-300" id="name" name="name" placeholder="Informe o nome do cliente" required />
                             </div>
 
-                            <!-- [input] - SERVIÇO -->
+                            <!-- SERVICE ITEMS -->
                             <div class="md:flex items-center my-6">
                                 <label class="w-1/6 required">Serviços</label>
                                 <div id="service-list" class="w-full md:w-5/6">
-                                    <div v-for="(service_item, index) in form.service_items" :key="index" class="flex flex-wrap md:flex-nowrap gap-2 md:gap-4 my-2">
+                                    <div v-for="(service_item, index) in form.service_items" :key="index" class="flex flex-wrap md:flex-nowrap gap-1 md:gap-4 my-4 md:my-2 p-2 md:p-0 bg-slate-100 md:bg-white">
                                         <div class="flex w-full md:w-5/12">
+                                            <!-- [input] - PIECE -->
                                             <input type="text" v-model="service_item.piece" class="w-5/6 md:w-11/12 border-slate-300 placeholder-slate-300 rounded-s-md" name="piece[]" placeholder="Informe a peça de roupa" required />
+                                            
+                                            <!-- [input] - COLOR -->
                                             <input type="color" v-model="service_item.color" class="w-1/6 md:w-1/12 h-full border-slate-300 rounded-e-md" name="color[]" required />
 
+                                            <!-- [button - mobile] - REMOVE SERVICE ITEM -->
                                             <div class="block md:hidden md:w-1/12 ms-2">
                                                 <BaseButton :disabled="form.service_items.length < 2" @click="removeServiceItem(index)" color="danger" :class="'px-3 w-full h-full justify-center'">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-trash">
@@ -143,14 +177,20 @@ const goBack = () => {
                                         </div>
 
                                         <div class="flex w-full md:w-6/12">
-                                            <select v-model="service_item.type" class="w-8/12 border-slate-300 rounded-s-md" name="type[]" @change="service_item.value = ServiceTypes[service_item.type]" required>
-                                                <option value="">Selecione o tipo de serviço</option>
-                                                <option v-for="(value, service) in ServiceTypes" :key="service" :value="service">{{ service }}</option>
-                                            </select>
+                                            <!-- [input] - TYPE -->
+                                            <div class="w-8/12">
+                                                <SelectMultiple v-model="service_item.type" :options="pluckedServiceTypes" :onChange="()=> {setServiceValue(service_item)}" placeholder="Selecione o tipo de serviço"
+                                                :classes="{
+                                                    btnDropdown: 'rounded-s-md',
+                                                    Dropdown: ''}"
+                                            />
+                                            </div>
 
+                                            <!-- [input] - VALUE -->
                                             <input type="text" v-model="service_item.value" v-mask="['R$ #,##', 'R$ ##,##', 'R$ ###,##']" @input="setTotalValue()" class="w-4/12 border-slate-300 placeholder-slate-300 rounded-e-md" name="value[]" placeholder="R$ 00,00" required />
                                         </div>
 
+                                        <!-- [button - desktop] - REMOVE SERVICE ITEM -->
                                         <div class="hidden md:block md:w-1/12">
                                             <BaseButton :disabled="form.service_items.length < 2" @click="removeServiceItem(index)" color="danger" :class="'px-3 w-full h-full justify-center'">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-trash">
@@ -165,6 +205,7 @@ const goBack = () => {
                                         </div>
                                     </div>
 
+                                    <!-- [button] - ADD SERVICE ITEM -->
                                     <BaseButton @click="addServiceItem()" :class="'px-3 py-3 w-full justify-center'">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-plus">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -175,13 +216,13 @@ const goBack = () => {
                                 </div>
                             </div>
 
-                            <!-- [input] - VALOR TOTAL -->
+                            <!-- [input] - TOTAL VALUE -->
                             <div class="md:flex items-center my-6">
                                 <label class="w-1/6 required">Valor total</label>
                                 <input type="text" v-model="form.value" v-mask="['R$ #,##', 'R$ ##,##', 'R$ ###,##']" class="block w-full md:w-5/6 rounded-md border-slate-300 placeholder-slate-300" id="name" name="name" placeholder="R$ 00,00" required />
                             </div>
 
-                            <!-- [input] - DATA DE ENTREGA -->
+                            <!-- [input] - DELIVERY DATE -->
                             <div class="md:flex items-center my-6">
                                 <label class="w-1/6 required">Data de entrega</label>
                                 <input type="date" v-model="form.delivery_date" class="block w-full md:w-5/6 rounded-md border-slate-300 placeholder-slate-300" id="name" name="name" required />
@@ -191,6 +232,7 @@ const goBack = () => {
                     <!-- card-body -->
 
                     <div class="card-footer px-6 pt-4 pb-6 border-t">
+                        <!-- [button] - SUBMIT -->
                         <BaseButton color="primary" btnType="submit" :class="'px-3 py-2'" form="create-form" :disabled="form.processing">
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-checks">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -199,6 +241,7 @@ const goBack = () => {
                             </svg>
                             Enviar
                         </BaseButton>
+
                         <p class="pt-1 text-xs"><span class="required"></span><i>Campos obrigatórios</i></p>
                     </div>
                 </div>
@@ -206,7 +249,6 @@ const goBack = () => {
             </div>
             <!-- page-body -->
         </div>
-
         <!-- page-content -->
     </WebLayout>
 </template>

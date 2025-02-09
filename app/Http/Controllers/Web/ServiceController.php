@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateServiceRequest;
 use App\Models\Client;
 use App\Models\Service;
 use App\Models\ServiceItem;
+use App\Models\ServiceType;
 use App\Traits\ServiceTrait;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -36,8 +37,10 @@ class ServiceController extends Controller
      */
     public function create()
     {
+        $ServiceTypes = ServiceType::select(['id', 'name', 'value'])->orderBy('name')->get();
+
         return inertia('Web/Service/CreateService', [
-            'ServiceTypes' => $this->ServiceTypes,
+            'ServiceTypes' => $ServiceTypes,
         ]);
     }
 
@@ -71,7 +74,7 @@ class ServiceController extends Controller
                 'service_id' => $Service->id,
                 'piece' => $service_item['piece'],
                 'color' => $service_item['color'],
-                'type' => $service_item['type'],
+                'type' => implode("|", $service_item['type']),
                 'value' => preg_replace('/[^0-9]/', '', $service_item['value']),
             ]);
         }
@@ -85,7 +88,7 @@ class ServiceController extends Controller
     public function show(Service $Service)
     {
         $Service->load('client');
-
+        
         return inertia('Web/Service/ShowService', [
             'Service' => $Service,
             'ServiceStatus' => $this->ServiceStatus,
@@ -98,11 +101,12 @@ class ServiceController extends Controller
     public function edit(Service $Service)
     {
         $Service->load('client', 'items');
+        $ServiceTypes = ServiceType::select(['id', 'name', 'value'])->orderBy('name')->get();
 
         return inertia('Web/Service/EditService', [
             'Service' => $Service,
             'ServiceStatus' => $this->ServiceStatus,
-            'ServiceTypes' => $this->ServiceTypes,
+            'ServiceTypes' => $ServiceTypes,
         ]);
     }
 
@@ -133,7 +137,7 @@ class ServiceController extends Controller
                 'service_id' => $Service->id,
                 'piece' => $service_item['piece'],
                 'color' => $service_item['color'],
-                'type' => $service_item['type'],
+                'type' => implode("|", $service_item['type']),
                 'value' => preg_replace('/[^0-9]/', '', $service_item['value']),
             ];
 
