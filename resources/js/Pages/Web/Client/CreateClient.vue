@@ -3,6 +3,7 @@ import { Head, useForm } from "@inertiajs/vue3";
 import WebLayout from "@/Layouts/WebLayout.vue";
 import BaseBreadcrumbs from "@/Components/BaseBreadcrumbs.vue";
 import BaseAlert from "@/Components/BaseAlert.vue";
+import InputSimple from "@/Components/Form/InputSimple.vue";
 
 let breadcrumbs = [
     {
@@ -68,19 +69,10 @@ function create() {
 
                         <form method="POST" @submit.prevent="create()" id="create-form">
                             <!-- [input] - NOME -->
-                            <div class="flex items-center my-6">
-                                <label class="w-1/6 required">Nome</label>
-                                <input v-model="form.name" class="block w-5/6 rounded-md border-slate-300 placeholder-slate-300" id="name" name="name" placeholder="Informe o nome do cliente" required />
-                            </div>
+                            <InputSimple type="text" v-model="form.name" label="Nome:" id="name" placeholder="Informe o nome do cliente" required />
 
                             <!-- [input] - TELEFONE -->
-                            <div class="flex items-center my-6">
-                                <label class="w-1/6 required">Telefone</label>
-                                <div class="w-5/6">
-                                    <input v-model="form.phone" v-mask="'(##) #####-####'" class="block w-full rounded-md border-slate-300 placeholder-slate-300" id="phone" name="phone" placeholder="Informe o telefone do cliente" required />
-                                    <p class="ps-1 text-xs text-slate-500">Informe o DDD seguido do número</p>
-                                </div>
-                            </div>
+                            <InputSimple type="text" v-model="form.phone" label="Telefone:" id="phone"  v-mask="'(##) #####-####'" placeholder="(##) #####-####" subText="Informe o DDD seguido do número" required />
                         </form>
                     </div>
                     <!-- card-body -->
@@ -94,6 +86,7 @@ function create() {
                             </svg>
                             Enviar
                         </BaseButton>
+                        
                         <p class="pt-1 text-xs"><span class="required"></span><i>Campos obrigatórios</i></p>
                     </div>
                 </div>

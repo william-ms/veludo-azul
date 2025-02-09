@@ -3,6 +3,7 @@ import { Head, useForm } from "@inertiajs/vue3";
 import WebLayout from "@/Layouts/WebLayout.vue";
 import BaseBreadcrumbs from "@/Components/BaseBreadcrumbs.vue";
 import BaseAlert from "@/Components/BaseAlert.vue";
+import InputSimple from "@/Components/Form/InputSimple.vue";
 
 let breadcrumbs = [
     {
@@ -68,19 +69,10 @@ function create() {
 
                         <form method="POST" @submit.prevent="create()" id="create-form">
                             <!-- [input] - NOME -->
-                            <div class="flex items-center my-6">
-                                <label class="w-1/6 required">Nome</label>
-                                <div class="w-full md:w-5/6">
-                                    <input v-model="form.name" id="name" name="name" class="block w-full rounded-md border-slate-300 placeholder-slate-300" placeholder="Informe o nome do tipo de serviço" required />
-                                    <p class="ps-1 text-xs text-slate-500">ex: Bainha, Apertar cintura, etc.</p>
-                                </div>
-                            </div>
+                            <InputSimple type="text" v-model="form.name" label="Nome:" id="name" placeholder="Informe o nome do tipo de serviço" subText="ex: Bainha, Apertar cintura, etc." required />
 
                             <!-- [input] - VALOR -->
-                            <div class="md:flex items-center my-6">
-                                <label class="w-1/6 required">Valor</label>
-                                <input v-model="form.value" type="text" v-mask="['R$ #,##', 'R$ ##,##', 'R$ ###,##']" class="block w-full md:w-5/6 rounded-md border-slate-300 placeholder-slate-300" id="name" name="name" placeholder="R$ 00,00" required />
-                            </div>
+                            <InputSimple type="text" v-model="form.value" label="Valor:" id="value" v-mask="['R$ #,##', 'R$ ##,##', 'R$ ###,##']" placeholder="R$ 00,00" required />
                         </form>
                     </div>
                     <!-- card-body -->
@@ -94,6 +86,7 @@ function create() {
                             </svg>
                             Enviar
                         </BaseButton>
+
                         <p class="pt-1 text-xs"><span class="required"></span><i>Campos obrigatórios</i></p>
                     </div>
                 </div>

@@ -5,6 +5,9 @@ import BaseBreadcrumbs from "@/Components/BaseBreadcrumbs.vue";
 import BaseAlert from "@/Components/BaseAlert.vue";
 import SelectMultiple from "@/Components/Form/SelectMultiple.vue";
 import { computed } from "vue";
+import InputSimple from "@/Components/Form/InputSimple.vue";
+import InputGroup from "@/Components/Form/InputGroup.vue";
+import InputGroupItem from "@/Components/Form/InputGroupItem.vue";
 
 const props = defineProps({
     ServiceTypes: Object,
@@ -135,31 +138,25 @@ const goBack = () => {
 
                         <form method="POST" @submit.prevent="store()" id="create-form">
                             <!-- [input] - PHONE -->
-                            <div class="md:flex items-center my-6">
-                                <label class="w-1/6 required">Telefone</label>
-                                <div class="w-full md:w-5/6">
-                                    <input type="text" v-model="form.phone" v-mask="'(##) #####-####'" @keyup="checkClient()" class="block w-full rounded-md border-slate-300 placeholder-slate-300" id="phone" name="phone" placeholder="(##) #####-####" required />
-                                    <p class="ps-1 text-xs text-slate-500">Informe o DDD seguido do número</p>
-                                </div>
-                            </div>
+                            <InputSimple type="text" v-model="form.phone" label="Telefone:" id="phone"  v-mask="'(##) #####-####'" placeholder="(##) #####-####" subText="Informe o DDD seguido do número" @keyup="checkClient()" required />
 
                             <!-- [input] - NAME -->
-                            <div class="md:flex items-center my-6">
-                                <label class="w-1/6 required">Nome</label>
-                                <input type="text" v-model="form.name" class="block w-full md:w-5/6 rounded-md border-slate-300 placeholder-slate-300" id="name" name="name" placeholder="Informe o nome do cliente" required />
-                            </div>
+                            <InputSimple type="text" v-model="form.name" label="Nome:" id="name" placeholder="Informe o nome do cliente" required />
 
                             <!-- SERVICE ITEMS -->
                             <div class="md:flex items-center my-6">
-                                <label class="w-1/6 required">Serviços</label>
+                                <label class="w-1/6 required">Serviços:</label>
+
                                 <div id="service-list" class="w-full md:w-5/6">
                                     <div v-for="(service_item, index) in form.service_items" :key="index" class="flex flex-wrap md:flex-nowrap gap-1 md:gap-4 my-4 md:my-2 p-2 md:p-0 bg-slate-100 md:bg-white">
                                         <div class="flex w-full md:w-5/12">
-                                            <!-- [input] - PIECE -->
-                                            <input type="text" v-model="service_item.piece" class="w-5/6 md:w-11/12 border-slate-300 placeholder-slate-300 rounded-s-md" name="piece[]" placeholder="Informe a peça de roupa" required />
-                                            
-                                            <!-- [input] - COLOR -->
-                                            <input type="color" v-model="service_item.color" class="w-1/6 md:w-1/12 h-full border-slate-300 rounded-e-md" name="color[]" required />
+                                            <InputGroup>
+                                                <!-- [input] - PIECE -->
+                                                <InputGroupItem position="start" type="text" v-model="service_item.piece" class="w-5/6 md:w-11/12" placeholder="Informe a peça de roupa" required />
+                                                
+                                                <!-- [input] - COLOR -->
+                                                <InputGroupItem position="end" type="color" v-model="service_item.color" class="w-1/6 md:w-1/12" required/>
+                                            </InputGroup>
 
                                             <!-- [button - mobile] - REMOVE SERVICE ITEM -->
                                             <div class="block md:hidden md:w-1/12 ms-2">
@@ -177,17 +174,19 @@ const goBack = () => {
                                         </div>
 
                                         <div class="flex w-full md:w-6/12">
-                                            <!-- [input] - TYPE -->
-                                            <div class="w-8/12">
-                                                <SelectMultiple v-model="service_item.type" :options="pluckedServiceTypes" :onChange="()=> {setServiceValue(service_item)}" placeholder="Selecione o tipo de serviço"
-                                                :classes="{
-                                                    btnDropdown: 'rounded-s-md',
-                                                    Dropdown: ''}"
-                                            />
-                                            </div>
+                                            <InputGroup>
+                                                <!-- [select] - TYPE -->
+                                                <div class="w-8/12">
+                                                    <SelectMultiple v-model="service_item.type" :options="pluckedServiceTypes" :onChange="()=> {setServiceValue(service_item)}" placeholder="Selecione o tipo de serviço"
+                                                    :classes="{
+                                                        btnDropdown: 'rounded-s-md',
+                                                        Dropdown: ''}"
+                                                />
+                                                </div>
 
-                                            <!-- [input] - VALUE -->
-                                            <input type="text" v-model="service_item.value" v-mask="['R$ #,##', 'R$ ##,##', 'R$ ###,##']" @input="setTotalValue()" class="w-4/12 border-slate-300 placeholder-slate-300 rounded-e-md" name="value[]" placeholder="R$ 00,00" required />
+                                                <!-- [input] - VALUE -->
+                                                <InputGroupItem position="end" type="text" v-model="service_item.value" class="w-4/12" v-mask="['R$ #,##', 'R$ ##,##', 'R$ ###,##']" @input="setTotalValue()" placeholder="R$ 00,00" required/>
+                                            </InputGroup>
                                         </div>
 
                                         <!-- [button - desktop] - REMOVE SERVICE ITEM -->
@@ -217,16 +216,10 @@ const goBack = () => {
                             </div>
 
                             <!-- [input] - TOTAL VALUE -->
-                            <div class="md:flex items-center my-6">
-                                <label class="w-1/6 required">Valor total</label>
-                                <input type="text" v-model="form.value" v-mask="['R$ #,##', 'R$ ##,##', 'R$ ###,##']" class="block w-full md:w-5/6 rounded-md border-slate-300 placeholder-slate-300" id="name" name="name" placeholder="R$ 00,00" required />
-                            </div>
+                            <InputSimple type="text" v-model="form.value" label="Valor total:" id="value" v-mask="['R$ #,##', 'R$ ##,##', 'R$ ###,##']" placeholder="R$ 00,00" required />
 
                             <!-- [input] - DELIVERY DATE -->
-                            <div class="md:flex items-center my-6">
-                                <label class="w-1/6 required">Data de entrega</label>
-                                <input type="date" v-model="form.delivery_date" class="block w-full md:w-5/6 rounded-md border-slate-300 placeholder-slate-300" id="name" name="name" required />
-                            </div>
+                            <InputSimple type="date" v-model="form.delivery_date" label="Data de entrega:" id="delivery_date"  required />
                         </form>
                     </div>
                     <!-- card-body -->

@@ -3,6 +3,11 @@ import { Head, useForm } from "@inertiajs/vue3";
 import WebLayout from "@/Layouts/WebLayout.vue";
 import BaseBreadcrumbs from "@/Components/BaseBreadcrumbs.vue";
 import BaseAlert from "@/Components/BaseAlert.vue";
+import InputSimple from "@/Components/Form/InputSimple.vue";
+
+let props = defineProps({
+    ServiceType: Object,
+});
 
 let breadcrumbs = [
     {
@@ -14,10 +19,6 @@ let breadcrumbs = [
     },
 ];
 
-let props = defineProps({
-    ServiceType: Object,
-});
-
 const form = useForm({
     service_type_id: props.ServiceType.service_type_id,
     name: props.ServiceType.name,
@@ -28,9 +29,6 @@ function update() {
     form.put(route("service.type.update", props.ServiceType.id), {});
 }
 
-const goBack = () => {
-    return window.history.back();
-};
 </script>
 
 <template>
@@ -49,12 +47,17 @@ const goBack = () => {
                         <h1 class="text-2xl font-bold text-slate-800">{{ ServiceType.name }}</h1>
 
                         <div>
-                            <BaseButton @click="goBack()" :class="'px-3 py-2'">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-back">
+                            <BaseButton btnType="link" :href="route('service.type.index')" :class="'px-3 py-2'">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-list">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                    <path d="M9 11l-4 4l4 4m-4 -4h11a4 4 0 0 0 0 -8h-1" />
+                                    <path d="M9 6l11 0" />
+                                    <path d="M9 12l11 0" />
+                                    <path d="M9 18l11 0" />
+                                    <path d="M5 6l0 .01" />
+                                    <path d="M5 12l0 .01" />
+                                    <path d="M5 18l0 .01" />
                                 </svg>
-                                Voltar
+                                Listar tipos de serviço
                             </BaseButton>
                         </div>
                     </div>
@@ -65,19 +68,10 @@ const goBack = () => {
 
                         <form method="POST" @submit.prevent="update()" id="edit-form">
                             <!-- [input] - NOME -->
-                            <div class="flex items-center my-6">
-                                <label class="w-1/6 required">Nome</label>
-                                <div class="w-full md:w-5/6">
-                                    <input type="text" v-model="form.name" class="block w-full md:w-full rounded-md border-slate-300 placeholder-slate-300" id="name" placeholder="Informe o nome do cliente" required />
-                                    <p class="ps-1 text-xs text-slate-500">ex: Bainha, Apertar cintura, etc.</p>
-                                </div>
-                            </div>
+                            <InputSimple type="text" v-model="form.name" label="Nome:" id="name" placeholder="Informe o nome do tipo de serviço" subText="ex: Bainha, Apertar cintura, etc." required />
 
                             <!-- [input] - VALOR -->
-                            <div class="md:flex items-center my-6">
-                                <label class="w-1/6 required" for="value">Valor</label>
-                                <input type="text" v-model="form.value" v-mask="['R$ #,##', 'R$ ##,##', 'R$ ###,##']" class="block w-full md:w-5/6 rounded-md border-slate-300 placeholder-slate-300" id="value" placeholder="R$ 00,00" required />
-                            </div>
+                            <InputSimple type="text" v-model="form.value" label="Valor:" id="value" v-mask="['R$ #,##', 'R$ ##,##', 'R$ ###,##']" placeholder="R$ 00,00" required />
                         </form>
                     </div>
                     <!-- card-body -->
@@ -91,6 +85,7 @@ const goBack = () => {
                             </svg>
                             Enviar
                         </BaseButton>
+
                         <p class="pt-1 text-xs"><span class="required"></span><i>Campos obrigatórios</i></p>
                     </div>
                 </div>
@@ -98,7 +93,6 @@ const goBack = () => {
             </div>
             <!-- page-body -->
         </div>
-
         <!-- page-content -->
     </WebLayout>
 </template>

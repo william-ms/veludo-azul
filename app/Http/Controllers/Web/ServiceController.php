@@ -79,7 +79,7 @@ class ServiceController extends Controller
             ]);
         }
 
-        return to_route('service.edit', $Service->id);
+        return to_route('service.edit', $Service->id)->with('success', 'Serviço cadastrado com sucesso');
     }
 
     /**
