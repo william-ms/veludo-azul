@@ -155,10 +155,10 @@ const goBack = () => {
 
                         <form method="POST" @submit.prevent="update()" id="edit-form">
                             <!-- [input] - PHONE -->
-                            <InputSimple type="text" v-model="form.phone" label="Telefone:" id="phone" v-mask="'(##) #####-####'" placeholder="(##) #####-####" subText="Informe o DDD seguido do número" @keyup="checkClient()" required />
+                            <InputSimple type="text" v-model="form.phone" label="Telefone:" id="phone" v-mask="'(##) #####-####'" placeholder="(##) #####-####" subText="Informe o DDD seguido do número" @keyup="checkClient()" :classes="{wrapper: 'my-6'}" required />
 
                             <!-- [input] - NAME -->
-                            <InputSimple type="text" v-model="form.name" label="Nome:" id="name" placeholder="Informe o nome do cliente" required />
+                            <InputSimple type="text" v-model="form.name" label="Nome:" id="name" placeholder="Informe o nome do cliente" :classes="{wrapper: 'my-6'}" required />
 
                             <!-- SERVICE -->
                             <div class="md:flex items-center my-6">
@@ -232,10 +232,10 @@ const goBack = () => {
                             </div>
 
                             <!-- [input] - TOTAL VALUE -->
-                            <InputSimple type="text" v-model="form.value" label="Valor total:" id="value" v-mask="['R$ #,##', 'R$ ##,##', 'R$ ###,##']" placeholder="R$ 00,00" required />
+                            <InputSimple type="text" v-model="form.value" label="Valor total:" id="value" v-mask="['R$ #,##', 'R$ ##,##', 'R$ ###,##']" placeholder="R$ 00,00" :classes="{wrapper: 'my-6'}" required />
 
                             <!-- [input] - DELIVERY DATE -->
-                            <InputSimple type="date" v-model="form.delivery_date" label="Data de entrega:" id="delivery_date"  required />
+                            <InputSimple type="date" v-model="form.delivery_date" label="Data de entrega:" id="delivery_date" :classes="{wrapper: 'my-6'}" required />
 
                             <!-- [select] - STATUS -->
                             <SelectSimple type="status" v-model="form.status" label="Status:" id="status" :options="ServiceStatus" :meta="{
@@ -243,7 +243,7 @@ const goBack = () => {
                                 key: 'status',
                                 value: 'status',
                                 text: 'text',
-                            }" required />
+                            }" :classes="{wrapper: 'my-6'}" required />
                         </form>
                     </div>
                     <!-- card-body -->

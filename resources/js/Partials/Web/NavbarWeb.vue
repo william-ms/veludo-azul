@@ -1,10 +1,18 @@
 <script setup>
-import { Link } from "@inertiajs/vue3";
+import { Link, useForm } from "@inertiajs/vue3";
 import Logo from "../../../images/logo.png";
 
 defineProps({
     showNavbar: { type: Boolean, default: false },
 });
+
+// FIELDS
+const form = useForm({});
+
+// STORE REQUEST
+function logout() {
+    form.post(route("logout"), {});
+}
 </script>
 
 <template>
@@ -75,6 +83,20 @@ defineProps({
                     </li>
                 </ul>
             </nav>
+
+            <div class="absolute bottom-0 left-0 right-0">
+                <form method="POST" @submit.prevent="logout">
+                    <button type="submit" class="flex w-full border-t border-slate-300 hover:bg-slate-100">
+                        <p class="w-5/6 py-4 border-e border-slate-300">Sair</p>
+                        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-logout mx-auto my-4">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />
+                            <path d="M9 12h12l-3 -3" />
+                            <path d="M18 15l3 -3" />
+                        </svg>
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 </template>

@@ -69,10 +69,10 @@ function create() {
 
                         <form method="POST" @submit.prevent="create()" id="create-form">
                             <!-- [input] - NOME -->
-                            <InputSimple type="text" v-model="form.name" label="Nome:" id="name" placeholder="Informe o nome do cliente" required />
+                            <InputSimple type="text" v-model="form.name" label="Nome:" id="name" placeholder="Informe o nome do cliente" :classes="{wrapper: 'my-6'}" required />
 
                             <!-- [input] - TELEFONE -->
-                            <InputSimple type="text" v-model="form.phone" label="Telefone:" id="phone"  v-mask="'(##) #####-####'" placeholder="(##) #####-####" subText="Informe o DDD seguido do número" required />
+                            <InputSimple type="text" v-model="form.phone" label="Telefone:" id="phone"  v-mask="'(##) #####-####'" placeholder="(##) #####-####" subText="Informe o DDD seguido do número" :classes="{wrapper: 'my-6'}" required />
                         </form>
                     </div>
                     <!-- card-body -->

@@ -68,10 +68,10 @@ function update() {
 
                         <form method="POST" @submit.prevent="update()" id="edit-form">
                             <!-- [input] - NOME -->
-                            <InputSimple type="text" v-model="form.name" label="Nome:" id="name" placeholder="Informe o nome do tipo de serviço" subText="ex: Bainha, Apertar cintura, etc." required />
+                            <InputSimple type="text" v-model="form.name" label="Nome:" id="name" placeholder="Informe o nome do tipo de serviço" subText="ex: Bainha, Apertar cintura, etc." :classes="{wrapper: 'my-6'}" required />
 
                             <!-- [input] - VALOR -->
-                            <InputSimple type="text" v-model="form.value" label="Valor:" id="value" v-mask="['R$ #,##', 'R$ ##,##', 'R$ ###,##']" placeholder="R$ 00,00" required />
+                            <InputSimple type="text" v-model="form.value" label="Valor:" id="value" v-mask="['R$ #,##', 'R$ ##,##', 'R$ ###,##']" placeholder="R$ 00,00" :classes="{wrapper: 'my-6'}" required />
                         </form>
                     </div>
                     <!-- card-body -->

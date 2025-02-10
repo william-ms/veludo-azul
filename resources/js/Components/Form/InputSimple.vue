@@ -41,7 +41,7 @@ const inputValue = computed({
 
 let classes = computed(() => {
     return {
-        wrapper:        ["md:flex items-center my-6", props.classes.wrapper || ""].filter(Boolean),
+        wrapper:        ["md:flex items-center", props.classes.wrapper || ""].filter(Boolean),
         label:          ["w-1/6 required", props.classes.label || ""].filter(Boolean),
 		wrapperInput:   ["w-full", (props.label) ? 'md:w-5/6' : '', props.classes.wrapperInput || ""].filter(Boolean),
         input:          ["block w-full rounded-md border-slate-300 placeholder-slate-300", props.classes.input || ""].filter(Boolean),
