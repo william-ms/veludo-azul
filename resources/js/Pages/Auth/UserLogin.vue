@@ -5,6 +5,7 @@ import InputSimple from '@/Components/Form/InputSimple.vue';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import logoLight from '@/../images/logo-light.png';
+import LoginLink from '@/../../vendor/spatie/laravel-login-link/resources/js/login-link.vue';
 
 defineProps({
     canResetPassword: {
@@ -45,6 +46,10 @@ const submit = () => {
 
         <BaseAlert />
 
+        <div class="flex justify-center">
+        <LoginLink v-if="$page.props.environment === 'local'" label="Clique aqui para o login de teste" class="px-3 py-1 bg-gray-400 rounded-lg text-white" :redirect-url="route('home')" />
+
+        </div>
         <form @submit.prevent="submit">
             <!-- [input] - EMAIL -->
             <div class="mt-4">
