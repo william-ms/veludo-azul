@@ -1,8 +1,8 @@
 <script setup></script>
 
 <template>
-    <div class="flex h-screen items-center bg-gray-100 sm:justify-center">
-        <main class="w-full bg-white px-6 py-4 shadow-md sm:max-w-md sm:rounded-lg" >
+    <div class="flex items-center sm:justify-center h-screen bg-white sm:bg-gray-100">
+        <main class="w-full sm:max-w-md px-6 py-4 bg-white sm:shadow-md sm:rounded-lg" >
             <slot />
         </main>
     </div>

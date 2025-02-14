@@ -1,8 +1,20 @@
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref, watch } from "vue";
 import Navbar from "@/Partials/Web/NavbarWeb.vue";
 
 let showNavbar = ref(false);
+let cronAlert = ref(true);
+
+onMounted(() => {
+    const storedCronAlert = sessionStorage.getItem("cronAlert");
+    if (storedCronAlert !== null) {
+        cronAlert.value = storedCronAlert === "true";
+    }
+});
+
+watch(cronAlert, (newValue) => {
+    sessionStorage.setItem("cronAlert", newValue);
+});
 </script>
 
 <template>
@@ -17,6 +29,28 @@ let showNavbar = ref(false);
                 </svg>
             </BaseButton>
         </header>
+
+        <div v-if="$page.props.environment === 'local'" v-show="cronAlert" class="flex items-center gap-2 mx-5 lg:mx-10 p-5 text-white rounded-lg bg-yellow-500/70 border border-yellow-400">
+            <svg xmlns="http://www.w3.org/2000/svg"  width="40"  height="40"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-info-triangle">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <path d="M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636 -2.87l-8.106 -13.536a1.914 1.914 0 0 0 -3.274 0z" />
+                <path d="M12 9h.01" />
+                <path d="M11 12h1v4h1" />
+            </svg>
+
+            <div class="w-full">
+                <p class="">O sistema está configurado para atualizar o banco de dados a cada 12 horas.</p>
+                <p class="">Com isso, tenha em mente que toda a alteração realizada nesse perído será removida.</p>
+            </div>
+
+            <button type="button" @click="cronAlert = !cronAlert">
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-x">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M18 6l-12 12" />
+                    <path d="M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
 
         <!-- Page Content -->
         <main class="mb-auto">
